@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box1{
+            width: 420px;
+            height: 240px;
+            background-color: #f1f1f1;
+            float: left;
+        }
+        .box{
+            width: 400px;
+            height: 220px;
+            margin-top: 5px;
+            margin-left: 7px;
+            border:1px solid #e0e0e1;
+            background-color: white;
+            float: left;
+        }
+        input{
+            height: 44px;
+            width: 200px;
+            margin-top: 8px;
+            margin-left: 10px;
+            float: left;
+        }
+        #key1{
+            height: 45px;
+            width: 153px;
+            margin-top: 10px;
+            margin-left: 5px;
+            margin-bottom: 3px;
+            font-size: 15px;
+            color: #939393;  
+            float: left;
+        }
+        .key2{
+            margin-left: 8px;
+            margin-top: 9px;
+            margin-right: 300px;
+            float: left;
+        }
+        .key3
+        {
+            background-color: #e0e0e0;            
+            margin-left: 12px;
+            margin-top: 12px;
+            float: left;
+        }
+        #key6{
+            background-color: #e0e0e0;            
+            margin-left: 8px;
+            float: left;
+        }
+        .key9{
+            float: rignt;
+            margin-top: 160px;
+            background-color: #e0e0e0;
+            color: white;
+            border: none;
+        }
+        #key8{
+            width: 380px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">
+        <div class="box">
+            <input type="text" placeholder="请输入想查找的商品" id="key">   
+            <button id="key1" onclick=saveStorage('key')>搜索</button>
+            <div class="key2">最近搜索</div>
+            <div id="key8"></div>  
+            <button class="key9" onclick="clearStorage()">X</button>      
+        </div>
+    </div>  
+    <script>    
+        loadStorage('key8');
+        function saveStorage(id){    
+            var data = document.getElementById(id).value;
+            var time = new Date().getTime();
+            localStorage.setItem(time, data);
+            alert("数据已保存。");
+            loadStorage('key8');
+        }
+
+        function loadStorage(id) {
+            var result='';
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                var value = localStorage.getItem(key);
+                var date = new Date();
+                date.setTime(key); //使用 setTime() 向 1970/01/01 添加毫秒，并显示新的日期和时间。
+                var datestr = date.toGMTString();
+                result +='<div class="key3">'+ value +'</div>';
+            }
+            var target = document.getElementById(id);
+            target.innerHTML = result;
+        }
+        function clearStorage() {
+            localStorage.clear();
+            alert("全部数据被清除。");
+            loadStorage('key8');
+        }
+    </script>
+</body>
+</html>
